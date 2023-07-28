@@ -62,5 +62,16 @@ async def execute_script(event):
         try:await event.edit(c.errors)
         except:await event.edit("False")
 
+@led.on(events.NewMessage(pattern=r'^d', outgoing=True))
+async def execute_script(event):
+    
+    c = os.popen(f"screen -S mo -dm bash -c 'python3 N1.py; exec sh'")
+    print(c)
+    if c:
+        try: await event.edit(c.read())
+        except: await event.edit('True')
+    else:
+        try:await event.edit(c.errors)
+        except:await event.edit("False")
 
 led.run_until_disconnected()
